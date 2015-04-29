@@ -1,0 +1,5 @@
+# files being edited
+*~
+# make and build files
+*.o
+*.h.gch
