@@ -16,8 +16,6 @@ Also, the project is able to run on Ubuntu and Debian-based distributions. To in
 
 
 ```
-#!c++
-
 sudo apt-get install libsfml-dev
 ```
 
