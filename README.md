@@ -33,7 +33,7 @@ Boid.cpp:
 * neighbordist
 * mulScalar in Boid::flock
 
-Future work might include creating a class that allows for these parameters to be set easily, as well as adding predators and optimizing the simulation. The program has terrible time complexity -- currently, the program iterates through the flock of boids -- each boid then iterates through the full flock three times to calculate each algorithm.
+Future work might include creating a class that allows for these parameters to be set easily, as well as adding predators and optimizing the simulation. The program has terrible time complexity -- currently, the program iterates through the flock of boids -- each boid then iterates through the full flock three times, once for each algorithm.
 
 ### How to clone this repository while using Visual Studio ###
 * Open up Visual Studio
