@@ -29,10 +29,13 @@ void Boid::applyForce(Pvector force)
 	acceleration.addVector(force);
 }
 
-// Function that checks and modifies the distance 
+// Function that checks and modifies the distance
 // of a boid if it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
+	// If the boid we're looking at is a predator, do not run the separation
+	// algorithm
+	
 	// Distance of field of vision for separation between boids
 	float desiredseparation = 20;
 
@@ -41,14 +44,37 @@ Pvector Boid::Separation(vector<Boid> boids)
 	// For every boid in the system, check if it's too close
 	for (int i = 0; i < boids.size(); i++)
 	{
+		// Calculate distance from current boid to boid we're looking at
 		float d = location.distance(boids[i].location);
+		// If this is a fellow boid and it's too close, move away from it
 		if ((d > 0) && (d < desiredseparation))
 		{
 			Pvector diff(0,0);
-			diff = diff.subTwoVector(location,boids[i].location); 
+			diff = diff.subTwoVector(location, boids[i].location); 
 			diff.normalize();
 			diff.divScalar(d);      // Weight by distance
 			steer.addVector(diff);
+			count++;
+		}
+		// If current boid is a predator and the boid we're looking at is also
+		// a predator, then separate only slightly 
+		if ((d > 0) && (d < desiredseparation) && predator == true && boids[i].predator == true)
+		{
+			Pvector pred2pred(0, 0);
+			pred2pred = pred2pred.subTwoVector(location, boids[i].location);
+			pred2pred.normalize();
+			pred2pred.divScalar(d);
+			steer.addVector(pred2pred);
+			count++;
+		} 
+		// If current boid is not a predator, but the boid we're looking at is
+		// a predator, then create a large separation Pvector
+		else if ((d > 0) && (d < desiredseparation+70) && boids[i].predator == true)
+		{
+			Pvector pred(0, 0);
+			pred = pred.subTwoVector(location, boids[i].location);
+			pred.mulScalar(900);
+			steer.addVector(pred);
 			count++;
 		}
 	}
@@ -71,6 +97,10 @@ Pvector Boid::Separation(vector<Boid> boids)
 // of nearby boids.
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
+	// If the boid we're looking at is a predator, do not run the alignment
+	// algorithm
+	//if (predator == true)
+	//	return Pvector(0,0);
 	float neighbordist = 50;
 
 	Pvector sum(0, 0);	
@@ -105,6 +135,11 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
+	// If the boid we're looking at is a predator, do not run the cohesion
+	// algorithm
+	//if (predator == true)
+	//	return Pvector(0,0);
+
 	float neighbordist = 50;
 
 	Pvector sum(0, 0);	
