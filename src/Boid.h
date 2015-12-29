@@ -3,82 +3,55 @@
 #include <stdlib.h>
 #include <iostream>
 
-using namespace std;
-
 #ifndef BOID_H_
 #define BOID_H_
 
-/*
-Brief description of Boid Class:
-//The boid class creates an object which has multiple vectors (location, velocity, acceleration)
-//Boids are given certain properties and rules to follow when interacting with other boids.
-//They are being used to simulate flocking patterns and properties
-
-For predators:
-Predators should act by themselves. Thus, their maxSpeed should be different,
-and they should not adhere to the three laws. However, they should adhere to
-cohesion -- how should they seek prey? Also, prey should be able to run away
-from predators. There are several ways to do this. The easiest way:
-
-	Predators are part of the flock. This means that when the boids check
-	through the vector of other boids, the predators are included. Check if
-	the boid being looked at is a predator, and if it is, calculate a Pvector
-	that maximizes separation.
-*/
+// The Boid Class
+//
+// Attributes
+//  bool predator: flag that specifies whether a given boid is a predator.
+//  Pvector location: Vector that specifies a boid's location.
+//  Pvector velocity: Vector that specifies a boid's current velocity.
+//  Pvector acceleration: Vector that specifies a boid's current acceleration.
+//  float maxSpeed: Limits magnitude of velocity vector.
+//  float maxForce: Limits magnitude of acceleration vector. (F = m*a!)
+//
+// Methods
+//  applyForce(Pvector force): Adds the given vector to acceleration
+//
+//  Pvector Separation(vector<Boid> Boids): If any other boids are within a
+//      given distance, Separation computes a a vector that distances the
+//      current boid from the boids that are too close.
+//
+//  Pvector Alignment(vector<Boid> Boids): Computes a vector that causes the
+//      velocity of the current boid to match that of boids that are nearby.
+//
+//  Pvector Cohesion(vector<Boid> Boids): Computes a vector that causes the
+//      current boid to seek the center of mass of nearby boids.
 
 class Boid {
 public:
-	bool predator;
-	Pvector location;
-	Pvector velocity;
-	Pvector acceleration;
-	float maxSpeed;
-	float maxForce;
-	Boid() {}
-	Boid(float x, float y)
-	{
-		acceleration = Pvector(0, 0);
-		velocity = Pvector(rand()%3-2, rand()%3-2); // Allows for range of -2 -> 2
-		location = Pvector(x, y);
-		maxSpeed = 3.5;
-		maxForce = 0.5;
-	}
-	Boid(float x, float y, bool predCheck) 
-	{
-		predator = predCheck;
-		if (predCheck == true) {
-			maxSpeed = 7.5;
-			maxForce = 0.5;
-			velocity = Pvector(rand()%3-1, rand()%3-1);
-		} else {
-			maxSpeed = 3.5;
-			maxForce = 0.5;
-			velocity = Pvector(rand()%3-2, rand()%3-2); // Allows for range of -2 -> 2
-		}
-		acceleration = Pvector(0, 0);
-		location = Pvector(x, y);
-	}
-/* 
-Destructors are commented out for now. g++ throws errors if they are included.
-   If compiling on Visual Studio, however, no errors are thrown.
-	//Destructor
-	Boid::~Boid()
-	{
-		//cout << "Boid is being deleted by destructor!" << endl;
-	}
-*/	
-	void applyForce(Pvector force);
-	// Three Laws that boids follow
-	Pvector Separation(vector<Boid> Boids);
-	Pvector Alignment(vector<Boid> Boids);
-	Pvector Cohesion(vector<Boid> Boids);
-	//Functions involving SFML and visualisation linking
-	Pvector seek(Pvector v);
-	void run(vector <Boid> v);
-	void update();
-	void flock(vector <Boid> v);
-	void borders();
-	float angle(Pvector v);
+    bool predator;
+    Pvector location;
+    Pvector velocity;
+    Pvector acceleration;
+    float maxSpeed;
+    float maxForce;
+    Boid() {}
+    Boid(float x, float y);
+    Boid(float x, float y, bool predCheck);
+    void applyForce(Pvector force);
+    // Three Laws that boids follow
+    Pvector Separation(vector<Boid> Boids);
+    Pvector Alignment(vector<Boid> Boids);
+    Pvector Cohesion(vector<Boid> Boids);
+    //Functions involving SFML and visualisation linking
+    Pvector seek(Pvector v);
+    void run(vector <Boid> v);
+    void update();
+    void flock(vector <Boid> v);
+    void borders();
+    float angle(Pvector v);
 };
 
 #endif

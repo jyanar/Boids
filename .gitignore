@@ -3,3 +3,4 @@
 # make and build files
 *.o
 *.h.gch
+boids-sim
