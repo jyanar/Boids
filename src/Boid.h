@@ -1,7 +1,5 @@
 #include "Pvector.h"
 #include <vector>
-#include <stdlib.h>
-#include <iostream>
 
 #ifndef BOID_H_
 #define BOID_H_
@@ -31,27 +29,50 @@
 
 class Boid {
 public:
-    bool predator;
-    Pvector location;
-    Pvector velocity;
-    Pvector acceleration;
-    float maxSpeed;
-    float maxForce;
-    Boid() {}
-    Boid(float x, float y);
-    Boid(float x, float y, bool predCheck);
-    void applyForce(Pvector force);
-    // Three Laws that boids follow
-    Pvector Separation(vector<Boid> Boids);
-    Pvector Alignment(vector<Boid> Boids);
-    Pvector Cohesion(vector<Boid> Boids);
-    //Functions involving SFML and visualisation linking
-    Pvector seek(Pvector v);
-    void run(vector <Boid> v);
-    void update();
-    void flock(vector <Boid> v);
-    void borders();
-    float angle(Pvector v);
+	bool predatorStatus;
+	Pvector location;
+	Pvector velocity;
+	Pvector acceleration;
+	float maxSpeed;
+	float maxForce;
+
+	Boid() {}
+	Boid(float x, float y);
+	Boid(float x, float y, bool predCheck);
+	void applyForce(Pvector force);
+	// Three Laws that boids follow
+	Pvector Separation(vector<Boid> Boids);
+	Pvector Alignment(vector<Boid> Boids);
+	Pvector Cohesion(vector<Boid> Boids);
+	//Functions involving SFML and visualisation linking
+	Pvector seek(Pvector v);
+	void run(vector <Boid> v);
+	void update();
+	void flock(vector <Boid> v);
+	void borders();
+	float getAngle(Pvector v);
+
+	//Used instead of global variables to access values and weights in Game.cpp
+	float desSep;
+	float desAli;
+	float desCoh;
+	float SepW;
+	float AliW;
+	float CohW;
+
+	float getDesSep();
+	float getDesAli();
+	float getDesCoh();
+	float getSepW();
+	float getAliW();
+	float getCohW();
+
+	void setDesSep(float x);
+	void setDesAli(float x);
+	void setDesCoh(float x);
+	void setSepW(float x);
+	void setAliW(float x);
+	void setCohW(float x);
 };
 
 #endif
