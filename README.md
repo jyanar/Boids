@@ -1,29 +1,25 @@
 # Boids
 
-This project attempts to simulate flocking behavior, through the creation of simple entities called Boids (birdoids). Boids, which exist on a two-dimensional plane, function through three simple rules -- alignment, cohesion, and separation.
+This project attempts to simulate flocking behavior, through the creation of simple entities called boids (birdoids). Boids, which exist on a two-dimensional plane, function through three simple rules -- alignment, cohesion, and separation.
 
 - Alignment causes boids to match velocity of nearby boids.
 - Cohesion causes boids to seek the center of mass of the nearest clump of boids.
-- Separation prevents boids from getting too close to each other. 
+- Separation prevents boids from getting too close to each other.
 
-These three simple rules cause complex behavior to emerge, which is what makes the boid simulation interesting. The algorithms were originally formulated by Craig Reynolds in the 1980s.
+These three simple rules cause complex behavior to emerge, which is what makes the boid simulation interesting. The algorithm was originally formulated by Craig Reynolds in the 1980s.
 
-### Running the simulation
+## Running the simulation
 
-It is necessary to install SFML (Simple and Fast Multi-Media Library) in order the run the program.
-- Windows: See [here](http://www.sfml-dev.org/tutorials/2.3/start-vc.php) for instructions on how to get SFML up and running on Windows.
+Install SFML (Simple and Fast Multi-Media Library) in order the run the program.
+- Windows: See [here](https://github.com/chernandez7/Boids) for a version that runs through Visual Studio.
 - OS X: `brew install sfml`
 - Ubuntu / Debian-based distros: `sudo apt-get install libsfml-dev`
 
-### The simulation
+Then `cd` into the `src` folder and run `make` to produce an executable file called `boids-sim`.
 
-Currently, the simulation needs to be improved. This can be done by finding the right set of parameters for the three rules, as well as messing with maxForce and maxSpeed in Boid.cpp. These include:
+```bash
+./boids-sim
+```
 
-Boid.cpp:
-* maxForce
-* maxSpeed
-* desiredseparation
-* neighbordist
-* mulScalar in Boid::flock
+to run the simulation. Exit with the <kbd>esc</kbd>.
 
-Future work might include creating a class that allows for these parameters to be set easily, as well as adding predators and optimizing the simulation. The program has terrible time complexity -- currently, the program iterates through the flock of boids -- each boid then iterates through the full flock three times, once for each algorithm.
