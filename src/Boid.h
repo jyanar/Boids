@@ -40,18 +40,18 @@ public:
     Boid() {}
     Boid(float x, float y);
     Boid(float x, float y, bool predCheck);
-    void applyForce(Pvector force);
+    void applyForce(const Pvector& force);
     // Three Laws that boids follow
-    Pvector Separation(vector<Boid> Boids);
-    Pvector Alignment(vector<Boid> Boids);
-    Pvector Cohesion(vector<Boid> Boids);
+    Pvector Separation(const vector<Boid>& Boids);
+    Pvector Alignment(const vector<Boid>& Boids);
+    Pvector Cohesion(const vector<Boid>& Boids);
     //Functions involving SFML and visualisation linking
-    Pvector seek(Pvector v);
-    void run(vector <Boid> v);
+    Pvector seek(const Pvector& v);
+    void run(const vector<Boid>& v);
     void update();
-    void flock(vector <Boid> v);
+    void flock(const vector<Boid>& v);
     void borders();
-    float angle(Pvector v);
+    float angle(const Pvector& v);
 };
 
 #endif

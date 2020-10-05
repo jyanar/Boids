@@ -14,7 +14,7 @@ void Pvector::set(float i, float o)
     y = o;
 }
 
-void Pvector::addVector(Pvector v)
+void Pvector::addVector(const Pvector& v)
 {
     x += v.x;
     y += v.y;
@@ -28,20 +28,17 @@ void Pvector::addScalar(float s)
 }
 
 // Subtracts 2 vectors
-void Pvector::subVector(Pvector v)
+void Pvector::subVector(const Pvector& v)
 {
     x -= v.x;
     y -= v.y;
 }
 
 // Subtracts two vectors and returns the difference as a vector
-Pvector Pvector::subTwoVector(Pvector v, Pvector v2)
+Pvector Pvector::subTwoVector(const Pvector& v, const Pvector& v2)
 {
-    Pvector tmp;
-    v.x -= v2.x;
-    v.y -= v2.y;
-    tmp.set(v.x, v.y);
-    return tmp;
+    Pvector tmp(v.x - v2.x, v.y - v2.y);
+    return std::move(tmp);
 }
 
 // Adds to a Pvector by a constant number
@@ -52,7 +49,7 @@ void Pvector::subScalar(float s)
 }
 
 // Multiplies 2 vectors
-void Pvector::mulVector(Pvector v)
+void Pvector::mulVector(const Pvector& v)
 {
     x *= v.x;
     y *= v.y;
@@ -66,7 +63,7 @@ void Pvector::mulScalar(float s)
 }
 
 // Divides 2 vectors
-void Pvector::divVector(Pvector v)
+void Pvector::divVector(const Pvector& v)
 {
     x /= v.x;
     y /= v.y;
@@ -89,7 +86,7 @@ void Pvector::limit(double max)
 }
 
 // Calculates the distance between the first Pvector and second Pvector
-float Pvector::distance(Pvector v)
+float Pvector::distance(const Pvector& v)
 {
     float dx = x - v.x;
     float dy = y - v.y;
@@ -98,7 +95,7 @@ float Pvector::distance(Pvector v)
 }
 
 // Calculates the dot product of a vector
-float Pvector::dotProduct(Pvector v)
+float Pvector::dotProduct(const Pvector& v)
 {
     float dot = x * v.x + y * v.y;
     return dot;
@@ -117,7 +114,7 @@ void Pvector::setMagnitude(float x)
 }
 
 // Calculate the angle between Pvector 1 and Pvector 2
-float Pvector::angleBetween(Pvector v)
+float Pvector::angleBetween(const Pvector& v)
 {
     if (x == 0 && y == 0) return 0.0f;
     if (v.x == 0 && v.y == 0) return 0.0f;
@@ -149,7 +146,7 @@ void Pvector::normalize()
 }
 
 // Creates and returns a copy of the Pvector used as a parameter
-Pvector Pvector::copy(Pvector v)
+Pvector Pvector::copy(const Pvector& v)
 {
     Pvector copy(v.x, v.y);
     return copy;

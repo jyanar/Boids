@@ -20,7 +20,7 @@ public:
     int getSize();
     Boid getBoid(int i);
     // Mutator Functions
-    void addBoid(Boid b);
+    void addBoid(const Boid& b);
     void flocking();
 };
 

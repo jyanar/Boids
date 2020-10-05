@@ -45,14 +45,14 @@ Boid::Boid(float x, float y, bool predCheck)
 }
 
 // Adds force Pvector to current force Pvector
-void Boid::applyForce(Pvector force)
+void Boid::applyForce(const Pvector& force)
 {
     acceleration.addVector(force);
 }
 
 // Separation
 // Keeps boids from getting too close to one another
-Pvector Boid::Separation(vector<Boid> boids)
+Pvector Boid::Separation(const vector<Boid>& boids)
 {
     // Distance of field of vision for separation between boids
     float desiredseparation = 20;
@@ -108,7 +108,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 // Alignment
 // Calculates the average velocity of boids in the field of vision and
 // manipulates the velocity of the current boid in order to match it
-Pvector Boid::Alignment(vector<Boid> Boids)
+Pvector Boid::Alignment(const vector<Boid>& Boids)
 {
     float neighbordist = 50; // Field of vision
 
@@ -140,7 +140,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // Cohesion
 // Finds the average location of nearby boids and manipulates the
 // steering force to move in that direction.
-Pvector Boid::Cohesion(vector<Boid> Boids)
+Pvector Boid::Cohesion(const vector<Boid>& Boids)
 {
     float neighbordist = 50;
     Pvector sum(0, 0);
@@ -163,7 +163,7 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 
 // Limits the maxSpeed, finds necessary steering force and
 // normalizes vectors
-Pvector Boid::seek(Pvector v)
+Pvector Boid::seek(const Pvector& v)
 {
     Pvector desired;
     desired.subVector(v);  // A vector pointing from the location to the target
@@ -194,7 +194,7 @@ void Boid::update()
 // Run flock() on the flock of boids.
 // This applies the three rules, modifies velocities accordingly, updates data,
 // and corrects boids which are sitting outside of the SFML window
-void Boid::run(vector <Boid> v)
+void Boid::run(const vector <Boid>& v)
 {
     flock(v);
     update();
@@ -202,7 +202,7 @@ void Boid::run(vector <Boid> v)
 }
 
 // Applies the three laws to the flock of boids
-void Boid::flock(vector<Boid> v)
+void Boid::flock(const vector<Boid>& v)
 {
     Pvector sep = Separation(v);
     Pvector ali = Alignment(v);
@@ -229,7 +229,7 @@ void Boid::borders()
 
 // Calculates the angle for the velocity of a boid which allows the visual
 // image to rotate in the direction that it is going in.
-float Boid::angle(Pvector v)
+float Boid::angle(const Pvector& v)
 {
     // From the definition of the dot product
     float angle = (float)(atan2(v.x, -v.y) * 180 / PI);
