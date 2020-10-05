@@ -14,6 +14,9 @@ Game::Game()
     this->window_height = desktop.height;
     this->window_width  = desktop.width;
     this->window.create(sf::VideoMode(window_width, window_height, desktop.bitsPerPixel), "Boids", sf::Style::None);
+    
+    // Try to achieve 60 FPS.
+    window.setFramerateLimit(60);
 }
 
 // Run the simulation. Run creates the boids that we'll display, checks for user

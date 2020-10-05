@@ -15,9 +15,9 @@ Boid Flock::getBoid(int i)
     return flock[i];
 }
 
-void Flock::addBoid(Boid b)
+void Flock::addBoid(const Boid& b)
 {
-    flock.push_back(b);
+    flock.push_back(std::move(b));
 }
 
 // Runs the run function for every boid in the flock checking against the flock
