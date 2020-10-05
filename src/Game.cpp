@@ -14,6 +14,8 @@ Game::Game()
     this->window_height = desktop.height;
     this->window_width  = desktop.width;
     this->window.create(sf::VideoMode(window_width, window_height, desktop.bitsPerPixel), "Boids", sf::Style::None);
+    
+    // Try to achieve 60 FPS.
     window.setFramerateLimit(60);
 }
 
@@ -21,7 +23,7 @@ Game::Game()
 // input, and updates the view
 void Game::Run()
 {
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 250; i++) {
         Boid b(window_width / 3, window_height / 3); // Starts all boids in the center of the screen
         sf::CircleShape shape(8, 3);
 
