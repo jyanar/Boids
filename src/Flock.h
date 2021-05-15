@@ -19,7 +19,7 @@ public:
     int getSize();
     //Read only and read/write methods.
     Boid getBoid(int i);
-    Boid &getBid(int i);
+    Boid &getBoid(int i);
     // Mutator Functions
     void addBoid(const Boid& b);
     void flocking();
