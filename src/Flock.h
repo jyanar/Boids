@@ -13,15 +13,18 @@
 
 class Flock {
 public:
-    vector<Boid> flock;
     //Constructors
     Flock() {}
     // Accessor functions
     int getSize();
+    //Read only and read/write methods.
     Boid getBoid(int i);
+    Boid &getBoid(int i);
     // Mutator Functions
     void addBoid(const Boid& b);
     void flocking();
+private:
+    vector<Boid> flock;  
 };
 
 #endif
